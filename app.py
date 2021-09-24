@@ -119,7 +119,41 @@ def tenant():
 
         return render_template("tenant.html")
 
+"""
+Creates a list of all the rentals with a start
+lease date between 1st June 1999 and 31st August
+2007 and changes the formatting of the dates.
+"""
+@app.route('/lease_start')
+def lease_start():
+    # csv file name
+    filename = 'csv/test-dataset.csv'
+    
+    # reading csv file
+    with open(filename, 'r') as csvfile:
+        # creating a data object
+        data = csv.reader(csvfile, delimiter = ',')
+        
+        # Defines the fields
+        fields = next(data)
 
+        # Star date and end date
+        sdate = date(1999, 6, 1)
+        edate = date(2007, 8, 31)
+
+        # For loop to iterate through the data
+        for eachline in data:
+            # Change the format of the dates in each line of data
+            date_set = datetime.strptime(eachline[7], '%d %b %Y')
+            end_date_set = datetime.strptime(eachline[8], '%d %b %Y')
+            # filters for dates between the start and end date
+            if sdate <= datetime.date(date_set) and datetime.date(date_set) <= edate:
+                # Reformats the dates to display day-month-year
+                eachline[7] = datetime.strftime(date_set, '%d-%m-%Y')
+                eachline[8] = datetime.strftime(end_date_set, '%d-%m-%Y')
+                print(eachline)
+
+        return render_template("lease-start.html")
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('0.0.0.0'),
