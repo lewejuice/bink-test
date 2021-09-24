@@ -45,6 +45,34 @@ def current_rent():
 
         return render_template("current-rent.html")
 
+"""
+Creates a new list of mast data which
+all have 25 lease years.
+"""
+@app.route('/lease_years')
+def lease_years():
+    # csv file name
+    filename = 'csv/test-dataset.csv'
+    
+    # initializing the rows list
+    rows = []
+    
+    # reading csv file
+    with open(filename, 'r') as csvfile:
+        # creating a data object
+        data = csv.reader(csvfile, delimiter = ',')
+        fields = next(data)
+        total_rent = 0
+
+        for eachline in data:
+            if eachline[-2] == '25':
+                rows.append(eachline)
+                total_rent += int(float(eachline[-1]))
+        
+        print(rows)
+        print(total_rent)
+        return render_template("lease-years.html")
+
 
 
 if __name__ == '__main__':
