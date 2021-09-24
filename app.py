@@ -73,6 +73,52 @@ def lease_years():
         print(total_rent)
         return render_template("lease-years.html")
 
+"""
+Creates a dictionary of the tenants name
+and how many masts that tenant holds.
+"""
+@app.route('/tenant')
+def tenant():
+    # csv file name
+    filename = 'csv/test-dataset.csv'
+    
+    # reading csv file
+    with open(filename, 'r') as csvfile:
+        # creating a data object
+        data = csv.reader(csvfile, delimiter = ',')
+        # Defines the fields
+        fields = next(data)
+
+        # Defines empty list of tenants
+        tenants = []
+
+        # Retrieve each tenants name and split string into two list items at ampersands, then append to list.
+        for eachline in data:
+            if eachline is not fields:
+                split_tenants = eachline[6].split('&')
+                tenants.append(split_tenants)
+        
+        # Join sub lists into one list of tenants names.
+        cleaned_tenants = list(itertools.chain.from_iterable(tenants))
+
+        # Function to remove full stops from strings.
+        def remove_fullstop(string):
+            punc = '.'
+            for ele in string:
+                if ele in punc:
+                    string = string.replace(ele, '')
+            return string
+
+        # Pass data through the function to remove full stops.
+        tenants = [remove_fullstop(i) for i in cleaned_tenants]
+
+        # Count how many times each name is repeated in the list and put it into a dictionary
+        tenant_dict = {i:tenants.count(i) for i in tenants}
+
+        print(tenant_dict)
+
+        return render_template("tenant.html")
+
 
 
 if __name__ == '__main__':
