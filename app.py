@@ -37,11 +37,11 @@ def current_rent():
         # Retrieves the current rent, rounds it, turns it into a integer and then sorts it in order
         sort = sorted(data, key=lambda x : int(float(x[-1])))
         # For loop to iterate through each line
-        for eachline in sort:
+        for x in sort:
             # Makes sure the line is not a field and makesure it doesn't go over 5 lines
-            if eachline is not fields and count < 5:
+            if x is not fields and count < 5:
                 count += 1
-                print(eachline)
+                print(x)
 
         return render_template("current-rent.html")
 
@@ -62,14 +62,16 @@ def lease_years():
         # creating a data object
         data = csv.reader(csvfile, delimiter = ',')
         fields = next(data)
-        total_rent = 0
+        total_rent = []
 
-        for eachline in data:
-            if eachline[-2] == '25':
-                rows.append(eachline)
-                total_rent += int(float(eachline[-1]))
+        for x in data:
+            if x[-2] == '25':
+                rows.append(x)
+                # Works out the total rent for all items in the list
+                total_rent.append(+int(float(x[-1])) * 25)
         
         print(rows)
+        print('Total ammount of rent for each 25 year lease:')
         print(total_rent)
         return render_template("lease-years.html")
 
