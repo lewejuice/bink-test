@@ -62,16 +62,16 @@ def lease_years():
         # creating a data object
         data = csv.reader(csvfile, delimiter = ',')
         fields = next(data)
-        total_rent = []
+        total_rent = 0
 
         for x in data:
             if x[-2] == '25':
                 rows.append(x)
                 # Works out the total rent for all items in the list
-                total_rent.append(+int(float(x[-1])) * 25)
+                total_rent += int(float(x[-1]))
         
         print(rows)
-        print('Total ammount of rent for each 25 year lease:')
+        print('Total ammount of rent:')
         print(total_rent)
         return render_template("lease-years.html")
 
