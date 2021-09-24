@@ -1,4 +1,7 @@
 {% extends 'base.html' %} {% block content %}
 <h2>The index homepage</h2>
 <a href="{{url_for('current_rent')}}" class="">Current Rent</a>
+<a href="{{url_for('lease_years')}}" class="">Lease Years</a>
+<a href="{{url_for('tenant')}}" class="">Tenant's</a>
+<a href="{{url_for('lease_start')}}" class="">Lease Start Date</a>
 {% endblock %}
