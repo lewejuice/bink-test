@@ -57,5 +57,15 @@ Tests:
 2. Python - Used to built the main application and write the functions for each task.
 3. Flask - The web framework I used to help build the web application.
 
+## Instructions
+
+1. Click the “Fork” button at the top right of the repository.
+2. Open your IDE and type 'git clone git@github.com:lewejuice/bink-test' in the console.
+3. Install all the requirements in the requirements.txt file.
+4. Run application locally with 'python app.py' in console.
+5. Navigate the site with the buttons provided.
+6. The results for each task will be printed to your console.
+7. Run automated tests with the command 'python test.py'. 
+
 ## Disclosure
 This project was built for the sole purpose of a technical test for Bink.
